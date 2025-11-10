@@ -1,0 +1,9 @@
+Options -Indexes
+AllowOverride None
+Require all denied
+
+DirectoryIndex disabled
+
+<FilesMatch ".*">
+    Require all denied
+</FilesMatch>

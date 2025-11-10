@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reverse Proxy Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <span class="nav-title">My Cool Website</span>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="weather">Weather in Trondheim</a>
+            <a href="reverse-proxy-test">Reverse Proxy Test</a>
+        </div>
+    </div>
+    <div class="container card">
+        <h1>Reverse Proxy Test Page</h1>
+        <div class="card-text">This is a test call to a api served by reverse proxy.</div>
+        <div id="response-data" class="card-section">
+            <div id="message" class="card-text"></div>
+            <div id="random-image"></div>
+        </div>
+    </div>
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('/api');
+                const data = await response.json();
+
+                document.getElementById('message').innerText = data.message;
+
+                // Remove previous image if any
+                document.getElementById('random-image').innerHTML = '';
+                const img = document.createElement('img');
+                img.src = data.imageUrl;
+                img.alt = "Random Image";
+                img.id = "api-image";
+                img.className = "card-image";
+                document.getElementById('random-image').appendChild(img);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>
